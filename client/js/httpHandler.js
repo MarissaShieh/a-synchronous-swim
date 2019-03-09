@@ -8,9 +8,10 @@ setInterval((function() {
     url: serverUrl,
     type: 'GET',
     success: (direction) => {
+      console.log(direction)
        SwimTeam.move(direction);
     },
-    error: () => console.log("There has been an error!")
+    error: (err) => console.log("There has been an error! ", err)
   })
 
-}),200);
+}),2000);

@@ -24,7 +24,7 @@ const logKeypress = (key) => {
 // Keypress Handler ///////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-var message = ''; // a buffer to collect key presses
+module.exports.message = ''; // a buffer to collect key presses
 
 module.exports.initialize = () => {
 
@@ -55,8 +55,9 @@ module.exports.initialize = () => {
       message += (mappedChars[key.name] || key.name);
       logKeypress(key.name);
     }
-
+     
   });
+
 };
 
 ///////////////////////////////////////////////////////////////////////////////
