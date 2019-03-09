@@ -10,18 +10,23 @@ var request = function(url, method, postdata) {
   this.method = method;
   this._postData = postdata;
   this.setEncoding = function() { /* noop */ };
-
+  console.log('inside request');
   this.addListener = this.on = (type, callback) => {
+    console.log('inside addListener');
     if (type === 'data') {
       if (this._postData) {
+        console.log('inside postData');
         callback(Buffer.from(this._postData));
       } else {
+        console.log('inside else statement');
         callback(Buffer.from(''));
       }
     }
     if (type === 'end') {
+      console.log('inside end');
       callback();
     }
+    console.log('THIS:', this);
     return this;
   };
 };
@@ -35,12 +40,14 @@ var response = function() {
   this.on = this.once = this.emit = ()=>{};
 
   this.writeHead = (responseCode, headers) => {
+    
     this._responseCode = responseCode;
     this._headers = headers;
   };
 
   this.write = (data) => {
     if (data) {
+      
       this._data = Buffer.concat([this._data, Buffer.from(data)]);
     }
   };
@@ -54,7 +61,7 @@ var response = function() {
 };
 
 module.exports = {
-  mock: (url, method, postdata) => {
+  mock: (url, method, postdata = 'up') => {
     return {
       req: new request(url, method, postdata),
       res: new response
